@@ -4,8 +4,8 @@
 #
 # Date: 25-Aug-2023
 # Authors:
-#           A01747869 Gustavo Gutiérrez
-#           A01746219 Eric Martínez
+#           A01747869 Gustavo Alejandro Gutiérrez Valdes
+#           A01746219 Eric Manuel Navarro Martínez
 #----------------------------------------------------------
 
 from PIL import Image
@@ -26,9 +26,7 @@ def process_image_principal() -> None:
             print("Invalid image type")
             sys.exit()
         
-        process_image_blue(INPUT_FILE_NAME)
-        process_image_green(INPUT_FILE_NAME)
-        process_image_red(INPUT_FILE_NAME)
+        process_image(INPUT_FILE_NAME)
         
     except IndexError:
         print("Please provide an image document as an argument.")
@@ -38,7 +36,7 @@ def process_image_principal() -> None:
         sys.exit()
         
 
-def process_image_red(INPUT_FILE_NAME) -> None:
+def process_image(INPUT_FILE_NAME) -> None:
     with Image.open(INPUT_FILE_NAME) as input_file:
         pixin = input_file.load()
         width, height = input_file.size
@@ -53,41 +51,26 @@ def process_image_red(INPUT_FILE_NAME) -> None:
                 pixout[x,y] = 0 #Pixel found
             else:
                 pixout[x,y] = 1 #Pixel not found
-                
     output_image.save(OUTPUT_FILE_NAME_1) 
     
-def process_image_green(INPUT_FILE_NAME) -> None:
-    with Image.open(INPUT_FILE_NAME) as input_file:
-        pixin = input_file.load()
-        width, height = input_file.size
-    output_image = Image.new('1',(width, height))
-    pixout = output_image.load()
-    for y in range (height):
-        for x in range(width):
-            _,g,_ = pixin[x,y]
+    for v in range (height):
+        for u in range(width):
+            _,g,_ = pixin[u,v]
             search = g & 1
             if search == 0:
-                pixout[x,y] = 0 #Pixel found
+                pixout[u,v] = 0 #Pixel found
             else:
-                pixout[x,y] = 1 #Pixel not found
-            
-            pixout[x,y] = (0,g,0)
+                pixout[u,v] = 1 #Pixel not found
     output_image.save(OUTPUT_FILE_NAME_2)
-    
-def process_image_blue(INPUT_FILE_NAME) -> None:
-    with Image.open(INPUT_FILE_NAME) as input_file:
-        pixin = input_file.load()
-        width, height = input_file.size
-    output_image = Image.new('1',(width, height))
-    pixout = output_image.load()
-    for y in range (height):
-        for x in range(width):
-            _,_,b = pixin[x,y]
+  
+    for n in range (height):
+        for m in range(width):
+            _,_,b = pixin[m,n]
             search = b & 1
             if search == 0:
-                pixout[x,y] = 0 #Pixel found
+                pixout[m,n] = 0 #Pixel found
             else:
-                pixout[x,y] = 1 #Pixel not found
+                pixout[m,n] = 1 #Pixel not found
     output_image.save(OUTPUT_FILE_NAME_3)
    
 if __name__ == '__main__':
