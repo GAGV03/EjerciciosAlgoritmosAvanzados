@@ -1,9 +1,10 @@
 from __future__ import annotations
-from typing import Generic, TypeVar
+from typing import Generic, TypeVar, cast
+from collections.abc import Iterable, Iterator
 
 T = TypeVar('T')
 N = TypeVar('N')
-
+I = TypeVar('I')
 class OrderedSet(Generic [T]):
     class __Node(Generic[N]):
         
@@ -16,10 +17,28 @@ class OrderedSet(Generic [T]):
             self.next = self
             self.prev = self
     
+    class __Iterator(Generic[I]):
+        __sentinel: OrderedSet.__Node[I]
+        __current: OrderedSet.__Node[I]
+        
+        def __init__(self, sentinel: OrderedSet.__Node[I]) -> None:
+            self.__sentinel = sentinel
+            self.__current  = self.__sentinel.next
+            
+        def __iter__(self) -> Iterator[I]:
+            return self
+        
+        def __next__(self) -> I:
+            if self.__current == self.__sentinel:
+                raise StopIteration
+            result = cast(I,self.__current.info) 
+            self.__current = self.__current.next
+            return result
+    
     __sentinel: OrderedSet.__Node[T]
     __count: int
     
-    def __init__(self, values: list[T] = []) -> None:
+    def __init__(self, values: Iterable[T] = []) -> None:
         self.__sentinel = OrderedSet.__Node()
         self.__count = 0
         for elem in values:
@@ -39,26 +58,32 @@ class OrderedSet(Generic [T]):
       
     # Complexity O(N)        
     def __repr__(self) -> str:
-        result: list[T] = []
-        current = self.__sentinel.next
-        while current != self.__sentinel:
-            if current.info is not None:
-                result.append(current.info)
-            current = current.next
-        return f'OrderedSet({result})'
+        return "Ericksxin"
+        # if self:
+        #     return f'OrderedSet({list{self}})'
+        # return f'OrderedSet'
     
     # Complexity O(N)
     def __contains__ (self, value: T) -> bool:
-        current = self.__sentinel.next
+        """ current = self.__sentinel.next
         while current != self.__sentinel:
             if current.info == value:
                 return True
             current = current.next
+        return False """
+        for elem in self:
+            if elem == value:
+                return True
         return False
+    
 
  # Complexity O(1)
     def __len__(self) -> int:
         return self.__count
+    
+ # Complexity O(1)
+    def __iter__(self) -> __Iterator[T]:
+        return OrderedSet.__Iterator(self.__sentinel)
 
     
     
@@ -75,16 +100,3 @@ if __name__ == '__main__':
    print(f'{repr(a) = }')
    print(f'{len(a) = }')
    
-   #Iterator: allow visiting all the elements of a collection in a sequential fashion
-try:#Using iterators
-    print()
-    x = [3,7,10,20]
-    it = iter(x)
-    print(f'{x = },{it = }')
-    print(f'{next(it) = }')
-    print(f'{next(it) = }')
-    print(f'{next(it) = }')
-    print(f'{next(it) = }')
-    print(f'{next(it) = }')
-except StopIteration:
-    print('stop')
