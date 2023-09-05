@@ -1,11 +1,11 @@
-from ordered_set import OrderedSet 
+from ordered_set import OrderedSet
 
-x = [3,7,10,20]
+x = [3, 7, 10, 20]
 
-
-try:#Using iterators
+# Using iterators
+try:
     it = iter(x)
-    print(f'{x = },{it = }')
+    print(f'{x = }, {it = }')
     print(f'{next(it) = }')
     print(f'{next(it) = }')
     print(f'{next(it) = }')
@@ -13,25 +13,25 @@ try:#Using iterators
     print(f'{next(it) = }')
 except StopIteration:
     print('stop')
-    
+
 print()
-    
-    
+
 try:
     it = iter(x)
     while True:
         print(f'{next(it) = }')
 except StopIteration:
     print('stop')
-    
+
 print()
 
 for elem in x:
     print(f'{elem = }')
 else:
     print('stop')
-    
-s = OrderedSet(['one','two','three','four','five'])
+
+print()
+s = OrderedSet(['one', 'two', 'three', 'four', 'five'])
 it2 = iter(s)
 print(f'{next(it2) = }')
 print(f'{next(it2) = }')
