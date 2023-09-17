@@ -89,18 +89,19 @@ class OrderedSet(Generic[T]):
     # Complexity: O(1)
     def __iter__(self) -> Iterator[T]:
         return OrderedSet.__Iterator(self.__sentinel)
-    
-    #Complexity: O(N)
-    def discard(self,value: T) -> None:
-        current = self.__sentinel.next;
+
+    # Complexity: O(N)
+    def discard(self, value: T) -> None:
+        current = self.__sentinel.next
         while current != self.__sentinel:
             if current.info == value:
                 current.prev.next = current.next
                 current.next.prev = current.prev
-                return 
+                self.__count -= 1
+                return
             current = current.next
-            
-    #Cmplexity: O(N^2)
+
+    # Complexity: O(N^2), N = len(self), N = len(other)
     def __eq__(self, other: object) -> bool:
         if isinstance(other, OrderedSet) and len(self) == len(other):
             for elem in self:
@@ -109,8 +110,8 @@ class OrderedSet(Generic[T]):
             return True
         else:
             return False
-        
-    def __le__(self,other: OrderedSet[T]) -> bool:
+
+    def __le__(self, other: OrderedSet[T]) -> bool:
         if len(self) <= len(other):
             for elem in self:
                 if elem not in other:
@@ -118,27 +119,43 @@ class OrderedSet(Generic[T]):
             return True
         else:
             return False
-        
-    def __and__(self, other:OrderedSet[T]) -> OrderedSet[T]:
-        result : OrderedSet[T] = OrderedSet()
+
+    def __and__(self, other: OrderedSet[T]) -> OrderedSet[T]:
+        result: OrderedSet[T] = OrderedSet()
         for elem in self:
             if elem in other:
                 result.add(elem)
         return result
-            
 
-    
-    
+
 if __name__ == '__main__':
-   a: OrderedSet[int] = OrderedSet([4,8,15,16,23,42])
-   print(a)
-   print(f'{hash(a): x}')
-   print(f'{a is None = }') 
-   print(f'{a == a =}')
-   print(f'{repr(a) =}')
-   a.add(4)
-   a.add(8)
-   a.add(15)
-   print(f'{repr(a) = }')
-   print(f'{len(a) = }')
+    a: OrderedSet[int] = OrderedSet([4, 8, 15, 16, 23, 42])
+    print(a)
+    print(f'{hash(a) = :x}')
+    print(f'{a is None = }')
+    print(f'{a == a = }')
+    print(f'{repr(a) = }')
+    a.add(4)
+    a.add(8)
+    a.add(15)
+    print(f'{repr(a) = }')
+    print(f'{len(a) = }')
+    a.add(108)
+    print(f'{len(a) = }')
+    print(f'{8 in a = }')
+    print(f'{5 in a = }')
+    b: OrderedSet[str] = OrderedSet()
+    print(f'{b = }')
+    b.add('hello')
+    b.add('bye')
+    c = OrderedSet(b)
+    c.add('hi')
+    print(f'{b = }')
+    print(f'{c = }')
+    d = OrderedSet('hello world')
+    print(f'{d = }')
+    e = OrderedSet((5, 6, 7, 9))
+    print(f'{e = }')
+    f = OrderedSet({'uno': 'one', 'dos': 'two', 'tres': 'three'}.items())
+    print(f'{f = }')
    
