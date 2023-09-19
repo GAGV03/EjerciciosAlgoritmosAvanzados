@@ -197,8 +197,18 @@ class OrderedSet(Generic[T]):
         return result
         
     def clear(self) -> None:
+        self.__count = 0
         self.__sentinel.next = self.__sentinel
         self.__sentinel.prev = self.__sentinel
+        
+    def pop(self) -> T:
+        if len(self) == 0:
+            raise KeyError('This set is empty')
+        else:
+            current = self.__sentinel.prev.info
+            result = cast(T,current)
+            self.remove(result)
+            return result
         
 
 if __name__ == '__main__':
