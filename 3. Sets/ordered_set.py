@@ -158,8 +158,8 @@ class OrderedSet(Generic[T]):
                 
     def __gt__(self,other: OrderedSet[T]) -> bool:
         if len(self) > len(other):
-            for elem in self:
-                if elem not in other:
+            for elem in other:
+                if elem not in self:
                     return False
             return True
         else:
@@ -199,6 +199,7 @@ class OrderedSet(Generic[T]):
     def clear(self) -> None:
         self.__sentinel.next = self.__sentinel
         self.__sentinel.prev = self.__sentinel
+        
 
 if __name__ == '__main__':
     a: OrderedSet[int] = OrderedSet([4, 8, 15, 16, 23, 42])
