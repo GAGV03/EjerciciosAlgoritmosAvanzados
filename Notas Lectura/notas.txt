@@ -1,0 +1,16 @@
+Chapter 3: Constraint-satisfaction problems
+CSPs are composed of variables with possible values that fall into ranges known as domains.  There are 3 core concepts: domain, constraints
+and variables. 
+
+
+Constraints will be defined using a Constraint class. Each Constraint consists of the variables it constrains and a method that checks 
+whether it is satisfied(). The default implementation should be overridden. In fact, it must be, because we are defining our Constraint 
+class as an abstract base class. Abstract base classes are not meant to be instantiated. Instead, only their subclasses that override and 
+implement their @abstractmethods are for actual use.
+
+Within CSP, the variables, domains, and constraints collections are of types that you would expect. The variables collection is a list of 
+variables, domains is a dict mapping variables to lists of possible values (the domains of those variables), and constraints is a dict that
+maps each variable to a list of the constraints imposed on it.
+
+Backtracking is the idea that once you hit a wall in your search, you go back to the last known point where you made a decision before the 
+wall, and choose a different path. 
