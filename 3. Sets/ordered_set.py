@@ -149,8 +149,8 @@ class OrderedSet(Generic[T]):
                 
     def __ge__(self,other: OrderedSet[T]) -> bool:
         if len(self) >= len(other):
-            for elem in self:
-                if elem not in other:
+            for elem in other:
+                if elem not in self:
                     return False
             return True
         else:
