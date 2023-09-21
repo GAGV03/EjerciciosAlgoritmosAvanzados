@@ -1,3 +1,12 @@
+#----------------------------------------------------------
+# Lab #2: Ordered Set Class
+#
+# Date: 20-Sep-2023
+# Authors:
+#           A01747869 Gustavo Gutiérrez
+#           A01746219 Eric Navarro
+#----------------------------------------------------------
+
 from __future__ import annotations
 from typing import Generic, TypeVar, cast
 from collections.abc import Iterable, Iterator
