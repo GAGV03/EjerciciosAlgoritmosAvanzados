@@ -1,3 +1,14 @@
+#----------------------------------------------------------
+# Lab #3: Combinatorics
+# Permutations and combinations with repetitions.
+#
+# Date: 29-Sep-2022
+# Authors:
+#           A01747869 Gustavo Gutiérrez
+#           A017 Eric Navarro
+#----------------------------------------------------------
+
+
 from comparable import C
 
 def power_set(s: list[C])-> list[list[C]]:
@@ -29,6 +40,15 @@ def permute(s:list[C])-> list[list[C]]:
 
 def permutations(s:list[C],k:int) -> list[list[C]]:
     return sum([permute (t) for t in combinations (s,k)],[])
+
+def permutations_with_repetition(s: list[C],k: int) -> list[list[C]]:
+    for i in s:
+        for _ in range(k):
+            insert(i,s,(len(s)))
+    return[[]]
+
+def combinations_with_repetition(s: list[C],k: int) -> list[list[C]]:
+    return [[]]
     
 if __name__ == '__main__':
     from pprint import pprint
@@ -41,4 +61,5 @@ if __name__ == '__main__':
     # pprint(insert_everywhere('x',['y','z']))
     #pprint(permute(['x','y','z']))
     ##pprint(sorted_nicely(permute(['w','x','y','z'])))
-    pprint(sorted_nicely(permutations(['w','x','y','z'],1)))
+    #pprint(sorted_nicely(permutations(['w','x','y','z'],3)))
+    pprint(sorted_nicely(permutations_with_repetition(['a','b'],4)))
