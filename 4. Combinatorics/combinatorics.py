@@ -42,10 +42,24 @@ def permutations(s:list[C],k:int) -> list[list[C]]:
     return sum([permute (t) for t in combinations (s,k)],[])
 
 def permutations_with_repetition(s: list[C],k: int) -> list[list[C]]:
-    for i in s:
-        for _ in range(k):
-            insert(i,s,(len(s)))
-    return[[]]
+    
+    if s and k > 0:
+        res = []
+        for i in s:
+            for _ in range(k):
+                res.append(i)
+        resPer = permutations(res,k)
+        unicos = []
+        for elem in resPer:
+            if elem not in unicos:
+                unicos.append(elem)
+        return unicos   
+        
+    elif k == 0:
+        return []
+    
+    else:
+        return []
 
 def combinations_with_repetition(s: list[C],k: int) -> list[list[C]]:
     return [[]]
@@ -62,4 +76,28 @@ if __name__ == '__main__':
     #pprint(permute(['x','y','z']))
     ##pprint(sorted_nicely(permute(['w','x','y','z'])))
     #pprint(sorted_nicely(permutations(['w','x','y','z'],3)))
-    pprint(sorted_nicely(permutations_with_repetition(['a','b'],4)))
+    #pprint(sorted_nicely(permutations_with_repetition([0,1],4)))
+    #pprint(sorted_nicely((permutations(['a','a','b','b','c','c'],2))))
+    pprint(sorted_nicely((permutations_with_repetition(['a','b','c'],2))))
+    #pprint(sorted([0,1,0,1,0,1,0]))
+        
+    
+    # def permutations_with_repetition(s: list[C],k: int) -> list[list[C]]:
+    
+    # if s and k > 0:
+    #     res = []
+    #     for i in s:
+    #         for _ in range(k):
+    #             res.append(i)
+    #     resPer = permutations(res,k)
+    #     unicos = []
+    #     for elem in resPer:
+    #         if elem not in unicos:
+    #             unicos.append(elem)
+    #     return unicos   
+        
+    # elif k == 0:
+    #     return []
+    
+    # else:
+    #     return []
