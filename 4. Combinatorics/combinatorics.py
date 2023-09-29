@@ -42,27 +42,40 @@ def permutations(s:list[C],k:int) -> list[list[C]]:
     return sum([permute (t) for t in combinations (s,k)],[])
 
 def permutations_with_repetition(s: list[C],k: int) -> list[list[C]]:
-    
     if s and k > 0:
         res = []
-        for i in s:
-            for _ in range(k):
-                res.append(i)
+        for elem in s:
+            res.extend([elem] * k)
         resPer = permutations(res,k)
         unicos = []
-        for elem in resPer:
-            if elem not in unicos:
-                unicos.append(elem)
-        return unicos   
-        
+        set_unicos = set()
+        for x in resPer:
+            if tuple(x) not in set_unicos:
+                unicos.append(x)
+                set_unicos.add(tuple(x))
+        return unicos
     elif k == 0:
         return []
-    
     else:
         return []
 
 def combinations_with_repetition(s: list[C],k: int) -> list[list[C]]:
-    return [[]]
+    if s and k > 0:
+        res = []
+        for elem in s:
+            res.extend([elem] * k)
+        resPer = combinations(res,k)
+        unicos = []
+        set_unicos = set()
+        for x in resPer:
+            if tuple(x) not in set_unicos:
+                unicos.append(x)
+                set_unicos.add(tuple(x))
+        return unicos
+    elif k == 0:
+        return []
+    else:
+        return []
     
 if __name__ == '__main__':
     from pprint import pprint
@@ -78,8 +91,9 @@ if __name__ == '__main__':
     #pprint(sorted_nicely(permutations(['w','x','y','z'],3)))
     #pprint(sorted_nicely(permutations_with_repetition([0,1],4)))
     #pprint(sorted_nicely((permutations(['a','a','b','b','c','c'],2))))
-    pprint(sorted_nicely((permutations_with_repetition(['a','b','c'],2))))
-    #pprint(sorted([0,1,0,1,0,1,0]))
+    #pprint(sorted_nicely((permutations_with_repetition([0,1],6))))
+    #pprint(sorted_nicely((permutations([0,1],3))))
+    pprint(sorted_nicely((combinations_with_repetition(['a','b','c'],2))))
         
     
     # def permutations_with_repetition(s: list[C],k: int) -> list[list[C]]:
@@ -99,5 +113,26 @@ if __name__ == '__main__':
     # elif k == 0:
     #     return []
     
+    # else:
+    #     return []
+    
+    
+    
+    
+    # def permutations_with_repetition(s: list[C],k: int) -> list[list[C]]:
+    # if s and k > 0:
+    #     res = []
+    #     for elem in s:
+    #         res.extend([elem] * k)
+    #     resPer = permutations(res,k)
+    #     unicos = []
+    #     set_unicos = set()
+    #     for x in resPer:
+    #         if tuple(x) not in set_unicos:
+    #             unicos.append(x)
+    #             set_unicos.add(tuple(x))
+    #     return unicos
+    # elif k == 0:
+    #     return []
     # else:
     #     return []
