@@ -108,19 +108,19 @@ class TestCombinatorics(TestCase):
                 permutations_with_repetition(['w', 'x', 'y', 'z'],
                                              3)))
 
-    # def test_permutations_with_repetition_9(self):
-    #     self.assertEqual(729,
-    #                      len(permutations_with_repetition(
-    #                          range(3), 6)))
-    #     self.assertEqual(4_096,
-    #                      len(permutations_with_repetition(
-    #                          [0, 1], 12)))
-    #     self.assertEqual(7_776,
-    #                      len(permutations_with_repetition(
-    #                          range(6), 5)))
-    #     self.assertEqual(10_000,
-    #                      len(permutations_with_repetition(
-    #                          range(10), 4)))
+    def test_permutations_with_repetition_9(self):
+        self.assertEqual(729,
+                         len(permutations_with_repetition(
+                             range(3), 6)))
+        self.assertEqual(4_096,
+                         len(permutations_with_repetition(
+                             [0, 1], 12)))
+        self.assertEqual(7_776,
+                         len(permutations_with_repetition(
+                             range(6), 5)))
+        self.assertEqual(10_000,
+                         len(permutations_with_repetition(
+                             range(10), 4)))
 
     def test_combinations_with_repetition_1(self):
         self.assertEqual([], combinations_with_repetition([], 5))
@@ -182,19 +182,19 @@ class TestCombinatorics(TestCase):
                 combinations_with_repetition(
                     ['w', 'x', 'y', 'z'], 3)))
 
-    # def test_combinations_with_repetition_9(self):
-    #     self.assertEqual(28,
-    #                      len(combinations_with_repetition(
-    #                          range(3), 6)))
-    #     self.assertEqual(13,
-    #                      len(combinations_with_repetition(
-    #                          [0, 1], 12)))
-    #     self.assertEqual(252,
-    #                      len(combinations_with_repetition(
-    #                          range(6), 5)))
-    #     self.assertEqual(715,
-    #                      len(combinations_with_repetition(
-    #                          range(10), 4)))
+    def test_combinations_with_repetition_9(self):
+        self.assertEqual(28,
+                         len(combinations_with_repetition(
+                             range(3), 6)))
+        self.assertEqual(13,
+                         len(combinations_with_repetition(
+                             [0, 1], 12)))
+        self.assertEqual(252,
+                         len(combinations_with_repetition(
+                             range(6), 5)))
+        self.assertEqual(715,
+                         len(combinations_with_repetition(
+                             range(10), 4)))
 
 
 if __name__ == '__main__':
