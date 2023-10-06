@@ -51,8 +51,8 @@ if __name__ == '__main__':
     metrorrey.add_edge_by_vertices("Santa Lucía", "General I. Zaragoza")
     
     result: Optional[Node[str]] = bfs(
-        "Sendero",
-        lambda x: x == "Exposición",
+        "Lerdo de Tejada",
+        lambda x: x == "Padre Mier",
         metrorrey.neighbors_for_vertex
     )
     if result:
