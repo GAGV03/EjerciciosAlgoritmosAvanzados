@@ -26,7 +26,7 @@ def successors(frame: Frame) -> list[Frame]:
         for a in range (0,4):
             for b in range (0,4):
                 if frame[a][b] == 0:
-                    if one != True:
+                    if one == False:
                         if a > 0:
                                 holder = frame[a-1][b]
                                 antTup = list(lista[a-1])
@@ -43,8 +43,8 @@ def successors(frame: Frame) -> list[Frame]:
                                 res = tuple(lista)
                                 variants.append(res)    
                                 one = True
-                    elif two != True:
-                        if a < 2:
+                    elif two == False:
+                        if a <= 2:
                             holder = frame[a+1][b]
                             actTup = list(lista[a])
                             aftTup = list(lista[a+1])
@@ -53,14 +53,14 @@ def successors(frame: Frame) -> list[Frame]:
                                     aftTup[i] = 0
                                 if actTup[i] == 0:
                                     actTup[i] == holder 
-                            del lista [a+1]
-                            del lista [a+1]
+                            del lista [a]
+                            del lista [a]
                             lista.insert(a,tuple(actTup))
                             lista.insert(a+1,tuple(aftTup))
                             res = tuple(lista)
                             variants.append(res)
                             two = True
-                    elif three != True:
+                    elif three == False:
                         if b > 0:
                             holder = frame[a+1][b]
                             actTup = list(lista[a])
@@ -70,14 +70,14 @@ def successors(frame: Frame) -> list[Frame]:
                                     aftTup[i] = 0
                                 if actTup[i] == 0:
                                     actTup[i] == holder 
-                            del lista [a+1]
-                            del lista [a+1]
+                            del lista [a]
+                            del lista [a]
                             lista.insert(a,tuple(actTup))
                             lista.insert(a+1,tuple(aftTup))
                             res = tuple(lista)
                             variants.append(res)
                             two = True
-                    elif four != True:
+                    elif four == False:
                         if b < 2:
                             holder = frame[a+1][b]
                             actTup = list(lista[a])
@@ -87,8 +87,8 @@ def successors(frame: Frame) -> list[Frame]:
                                     aftTup[i] = 0
                                 if actTup[i] == 0:
                                     actTup[i] == holder 
-                            del lista [a+1]
-                            del lista [a+1]
+                            del lista [a]
+                            del lista [a]
                             lista.insert(a,tuple(actTup))
                             lista.insert(a+1,tuple(aftTup))
                             res = tuple(lista)

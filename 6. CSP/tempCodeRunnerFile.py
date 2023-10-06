@@ -1,3 +1,1 @@
-class GridLocation(NamedTuple):
-    row: int
-    column: int
+a > 0
