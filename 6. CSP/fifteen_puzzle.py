@@ -26,8 +26,8 @@ def successors(frame: Frame) -> list[Frame]:
         for a in range (0,4):
             for b in range (0,4):
                 if frame[a][b] == 0:
-                    if one == False:
-                        if a > 0:
+                    if a > 0:
+                        if one == False:
                                 holder = frame[a-1][b]
                                 antTup = list(lista[a-1])
                                 actTup = list(lista[a])
@@ -44,54 +44,52 @@ def successors(frame: Frame) -> list[Frame]:
                                 variants.append(res)   
                                 lista = list(frame) 
                                 one = True
-                    elif two == False:
-                        if a <= 2:
-                            holder = frame[a+1][b]
-                            #print(holder)
-                            actTup = list(lista[a])
-                            aftTup = list(lista[a+1])
-                            for i in range(0,4):
-                                if aftTup[i] == holder:
-                                    aftTup[i] = 0
-                                if actTup[i] == 0:
-                                    actTup[i] = holder 
-                            del lista [a+1]
-                            del lista [a]
-                            lista.insert(a,tuple(actTup))
-                            lista.insert(a+1,tuple(aftTup))
-                            res = tuple(lista)
-                            variants.append(res)
-                            lista = list(frame) 
-                            two = True
-                    elif three == False:
-                        if b > 0:
-                            holder = frame[a][b-1]
-                            #print(holder)
-                            actTup = list(lista[a])
-                            for i in range(0,4):
-                                if actTup[i] == 0:
-                                    actTup[i] = holder 
-                                    actTup[i-1] = 0
-                            del lista [b-1]
-                            lista.insert(b-1,tuple(actTup))
-                            res = tuple(lista)
-                            variants.append(res)
-                            lista = list(frame) 
-                            three = True
-                    elif four == False:
-                        if b < 2:
-                            holder = frame[a][b+1]
-                            actTup = list(lista[a])
-                            for i in range(0,4):
-                                if actTup[i] == 0:
-                                    actTup[i] = holder
-                                    actTup[i+a] = 0
-                            del lista [b+1]
-                            lista.insert(b+1,tuple(actTup))
-                            res = tuple(lista)
-                            variants.append(res)
-                            lista = list(frame) 
-                            four = True
+                        elif a <= 2:            
+                            if two == False:
+                                holder = frame[a+1][b]
+                                actTup = list(lista[a])
+                                aftTup = list(lista[a+1])
+                                for i in range(0,4):
+                                    if aftTup[i] == holder:
+                                        aftTup[i] = 0
+                                    if actTup[i] == 0:
+                                        actTup[i] = holder 
+                                del lista [a+1]
+                                del lista [a]
+                                lista.insert(a,tuple(actTup))
+                                lista.insert(a+1,tuple(aftTup))
+                                res = tuple(lista)
+                                variants.append(res)
+                                lista = list(frame) 
+                                two = True
+                        elif b > 0:
+                            if three == False:
+                                holder = frame[a][b-1]
+                                actTup = list(lista[a])
+                                for i in range(0,4):
+                                    if actTup[i] == 0:
+                                        actTup[i] = holder 
+                                        actTup[i-1] = 0
+                                del lista [b]
+                                lista.insert(b,tuple(actTup))
+                                res = tuple(lista)
+                                variants.append(res)
+                                lista = list(frame) 
+                                three = True
+                        elif b <= 2:
+                            if four == False:
+                                holder = frame[a][b+1]
+                                actTup = list(lista[a])
+                                for i in range(0,4):
+                                    if actTup[i] == 0:
+                                        actTup[i] = holder
+                                        actTup[i+1] = 0
+                                del lista [b+1]
+                                lista.insert(b+1,tuple(actTup))
+                                res = tuple(lista)
+                                variants.append(res)
+                                lista = list(frame) 
+                                four = True
     return variants
     
 def heuristic(frame: Frame) -> float:
@@ -119,7 +117,9 @@ if __name__ == '__main__':
     # print(goal_test(prueba))
     # print(heuristic(prueba2))
     # print(prueba[0][0])
-    pprint(successors( ((2,3,4,5),
-                        (1,2,3,4),
-                        (9,10,12,13),
-                        (15,0,34,5))))
+    pprint(successors(((2, 3, 4, 8),
+                       (1, 5, 7, 11),
+                       (9, 6, 0, 15),
+                       (13, 14, 10, 12))))
+    
+    #Solo hace el de mover hacia arriba y hacia abajo 
