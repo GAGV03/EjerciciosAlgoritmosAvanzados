@@ -236,3 +236,6 @@ if __name__ == "__main__":
     print(binary_contains(["a", "d", "e", "f", "z"], "f"))  # True
     print(binary_contains(
         ["john", "mark", "ronald", "sarah"], "sheila"))     # False
+    
+    
+   
