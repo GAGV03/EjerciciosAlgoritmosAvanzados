@@ -1,0 +1,22 @@
+1- Algorithm analysis review.
+    --Big O Notation
+    --Common Runtime Functions
+2- Python language specific features.
+    --Type hints
+    --Bitwise operators: &, |, ^, ~, <<, >>.
+    --Comprehensions: lists, sets, dictionaries, generators.
+    --Generator functions and the yield statement.
+    --Classes, data classes, named tuples.
+3- Combinatorics
+    --Power set.
+    --Combinations (with and without repetitions).
+    --Permutations (with and without repetitions).
+4- Search algorithms.
+    --Depth-first search (DFS).
+    --Breadth-first search (BFS).
+    --A* search.
+    --Constraint-satisfaction problems (CSP).
+5- Priority queues.
+    --Min heaps and max heaps.
+    --Heap insertion and deletion.
+    --Heapsort
