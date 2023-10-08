@@ -1,9 +1,62 @@
 1- Algorithm analysis review.
     --Big O Notation
+        Big O notation nos permite dar una nomenclatura o simbología a la complejidad de los algoritmos.
+        Generalmente describe el peor escenario, es decir, el máximo tiempo en la mayor cantidad de repeticiones que el algoritmo 
+        tiene que ejecutar.
+        O(1) — notación constante: Esta expresión indica tiempo constante, lo que significa que el algoritmo se ejecutará con el mismo 
+        rendimiento sin importar el tamaño del input.
+        O(n) — notación lineal: Esta es la expresión de crecimiento lineal, la complejidad del algoritmo aumenta de manera proporcional al 
+        tamaño del input.
+        O(n^2) — notación cuadrática: Indica que el crecimiento en complejidad es proporcional al cuadrado del tamaño del input. 
+        O(log n) — notación logarítmica: Indica que el tiempo aumenta linealmente, mientras que n sube exponencialmente. Entonces, si se 
+        tarda 1 segundo en calcular 10 elementos, se necesitarán 2 para 100, 3 para 1000 y así sucesivamente.
+
     --Common Runtime Functions
+        O(1)
+        O(logN)
+        O(N)
+        O(N log N)
+        O(N^2)
+        O(N^3)
+        O(2^N)
+        O(N!)
+
 2- Python language specific features.
     --Type hints
+        Is the previous declaration of the type of some variable or object.
+        In fact, by the time your program runs, all the type information you’ve provided has been erased. Python type hints are used ahead 
+        of time, by the type checking system you’re employing; for instance, in your editor or IDE.
+        Example of type hints:
+
+        Hinting a variable
+        age : int
+        name : string
+
+        Hinting a function
+        def hello (name : string) -> string:
+        println('Hola wuenas')
+
+        Hinting an object:
+        dict_of_users: dict[int,str] = {
+             1: "Jerome",
+             2: "Lewis"
+        }
+
+        Hinting types:
+        Optional: It declares that a variable can be of one type or None
+        user_id : Optional[int] -> it can be int or None
+
+        Union: it declares that a variable can be of various types
+        user_id : Union[int,str] -> it can be int or string
+
     --Bitwise operators: &, |, ^, ~, <<, >>.
+         &(AND):
+         |(OR):
+         ^(XOR):
+         ~(NOT):
+         <<(Left Shift):
+         >>(Right Shift):
+         
     --Comprehensions: lists, sets, dictionaries, generators.
     --Generator functions and the yield statement.
     --Classes, data classes, named tuples.
