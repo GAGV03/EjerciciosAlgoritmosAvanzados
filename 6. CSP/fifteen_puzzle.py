@@ -8,7 +8,7 @@ def solve_puzzle(frame: Frame) -> None:
     result: Optional[Node[Frame]] = astar(
         frame, goal_test, successors, heuristic)
     if result is None:
-        print('No')
+        print('No se puede generar una respuesta')
     else:
         path: list[Frame] = node_to_path(result)
         xo: int = 0
@@ -100,7 +100,7 @@ def successors(frame: Frame) -> list[Frame]:
                         else:
                                 two = True
                     elif three == False:
-                        if b > 0:
+                        if b <= 2:
                                 holder = frame[a][b+1]
                                 actTup = list(lista[a])
                                 for i in range(0,4):
@@ -117,8 +117,7 @@ def successors(frame: Frame) -> list[Frame]:
                         else:
                             three = True
                     elif four == False:
-                        if b <= 2:
-                                    
+                        if b > 0:
                                 holder = frame[a][b-1]
                                 actTup = list(lista[a])
                                 for i in range(0,4):
@@ -134,62 +133,7 @@ def successors(frame: Frame) -> list[Frame]:
                         else:
                             four = True 
     fin = time.time()
-    print(fin - inicio)
     return list(variants)
-
-def successors2(frame: Frame) -> list[Frame]:
-    inicio = time.time()
-    posX: int = 0
-    posY: int = 0
-    
-    
-    frameTemp: list[Frame] = []
-    for i in range(4):
-        for j in range(4):
-            if frame[i][j] == 0:
-                posX = j
-                posY = i
-                break
-    
-    if posY != 3:
-        cpyFrame = list(frame)
-        temp = [list(y) for y in cpyFrame]
-        temp[posY][posX] =  temp[posY + 1][posX]
-        temp[posY + 1][posX] = 0
-        temp2 = [tuple(t) for t in temp]
-        temp3 = Frame(temp2)
-        frameTemp.append(temp3)
-
-    if posY != 0:
-        cpyFrame = list(frame)
-        temp = [list(y) for y in cpyFrame]
-        temp[posY][posX] =  temp[posY - 1][posX]
-        temp[posY - 1][posX] = 0
-        temp2 = [tuple(t) for t in temp]
-        temp3 = Frame(temp2)
-        frameTemp.append(temp3)
-
-    if posX != 3:
-        cpyFrame = list(frame)
-        temp = [list(y) for y in cpyFrame]
-        temp[posY][posX] =  temp[posY][posX + 1]
-        temp[posY][posX + 1] = 0
-        temp2 = [tuple(t) for t in temp]
-        temp3 = Frame(temp2)
-        frameTemp.append(temp3)
-
-    if posX != 0:
-        cpyFrame = list(frame)
-        temp = [list(y) for y in cpyFrame]
-        temp[posY][posX] =  temp[posY][posX - 1]
-        temp[posY][posX - 1] = 0
-        temp2 = [tuple(t) for t in temp]
-        temp3 = Frame(temp2)
-        frameTemp.append(temp3)
-        
-        fin = time.time()
-        print(fin - inicio)
-    return list(frameTemp)  
     
 def heuristic(frame: Frame) -> float:
     goal : Frame = ((1,2,3,4),
@@ -211,17 +155,17 @@ if __name__ == '__main__':
             (9, 6, 12, 0),
             (13, 14, 10, 15)))  """
             
-print('Mi successors: ')
+""" print('Mi successors: ')
 
-pprint(successors(((2, 3, 0, 8),
-                   (7, 5, 4, 11),
+pprint(successors(((2, 3, 11, 8),
+                   (7, 5, 4, 0),
                    (9, 6, 1, 12),
                    (13, 14, 10, 15)))) 
 
 print('Successors de Carlos: ')
 
-pprint(successors2(((2, 3, 0, 8),
-                    (7, 5, 4, 11),
+pprint(successors2(((2, 3, 11, 8),
+                    (7, 5, 4, 0),
                     (9, 6, 1, 12),
                     (13, 14, 10, 15)))) 
 
@@ -231,6 +175,6 @@ print(successors(((2, 3, 4, 8),
                    (13, 14, 10, 15))) == successors2(((2, 3, 4, 8),
                     (7, 5, 0, 11),
                     (9, 6, 1, 12),
-                    (13, 14, 10, 15))))
+                    (13, 14, 10, 15)))) """
 
 
