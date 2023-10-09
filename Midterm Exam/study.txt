@@ -12,14 +12,14 @@
         tarda 1 segundo en calcular 10 elementos, se necesitarán 2 para 100, 3 para 1000 y así sucesivamente.
 
     --Common Runtime Functions
-        O(1)
-        O(logN)
-        O(N)
-        O(N log N)
-        O(N^2)
-        O(N^3)
-        O(2^N)
-        O(N!)
+        O(1): Accessing an array index, Stack follows Last In First Out sequence, in short LIFO, 
+        O(log N):
+        O(N):
+        O(N log N): HeapSort, QuickSort, MergeSort, ShellSort
+        O(N^2): BubbleSort, SelectionSort, InsertionSort
+        O(N^3):
+        O(2^N):
+        O(N!):
 
 2- Python language specific features.
     --Type hints
@@ -50,26 +50,288 @@
         user_id : Union[int,str] -> it can be int or string
 
     --Bitwise operators: &, |, ^, ~, <<, >>.
-         &(AND):
-         |(OR):
-         ^(XOR):
-         ~(NOT):
-         <<(Left Shift):
-         >>(Right Shift):
+        &(AND): Two series of bits are combined, and only in the places where are two 1`s, the 1 is conserved. In other cases, there are 0`s.
+        It performs a logical conjunction, and the result is the intersection of the operators arguments.
+        Example: 10011011 &
+                10100110 
+                Result: 10000010
+    
+        |(OR): Two series of bits are combined, and for each pair of bits, if at least one is turned on (1), then it remains the 1. Otherwise,
+        it remains a 0. It performs a logical disjunctions, and the result is the union of the operators arguments.
+        Example: 10011011 |
+                10100110 
+                Result:  10111111
+
+        ^(XOR): Two series of bits are combined, and for each pair, they must have opossing values to return a 1. Otherwise, it will be a 0.
+        It performs an exclusive disjunction.
+        Example: 10011011 ^
+                10100110 
+                Result:  00111101
+
+        ~(NOT): It can involve only one series of bits, and it returns all the contrary values for each bit. In other words, it flips all 
+        the bits in the series. It performs a logical negation.
+        Example: ~10011011 
+                Result:  01100100
+    
+        <<(Left Shift): moves the bits of its first operand to the left by the number of places specified in its second operand. It also 
+        takes care of inserting enough zero bits to fill the gap that arises on the right edge of the new bit pattern. Shifting a single 
+        bit to the left by one place doubles its value. 
+        Example:
+                39 << 3 = 312
+
+        >>(Right Shift): Is analogous to the left one, but instead of moving bits to the left, it pushes them to the right by the specified 
+        number of places. The rightmost bits always get dropped. Every time you shift a bit to the right by one position, you halve its 
+        underlying value. Moving the same bit by two places to the right produces a quarter of the original value, and so on.
+        Example:
+                5 >> 1 = 2
+
          
     --Comprehensions: lists, sets, dictionaries, generators.
+
+        LISTS
+
+        List Comprehensions provide an elegant way to create new lists. The following is the basic structure of list comprehension:
+        output_list = [output_exp for var in input_list if (var satisfies this condition)]
+        Note that list comprehension may or may not contain an if condition. List comprehensions can contain multiple.
+
+        Example:
+
+        input_list = [1, 2, 3, 4, 4, 5, 6, 7, 7]
+        list_using_comp = [var for var in input_list if var % 2 == 0]
+        print("Output List using list comprehensions:",list_using_comp)
+
+        Output: Output List using list comprehensions: [2, 4, 4, 6]
+
+        DICTIONARIES
+
+        Extending the idea of list comprehensions, we can also create a dictionary using dictionary comprehensions. The basic structure 
+        of a dictionary comprehension looks like below.
+
+        output_dict = {key:value for (key, value) in iterable if (key, value satisfy this condition)}
+
+        Example:
+
+        input_list = [1,2,3,4,5,6,7]
+        dict_using_comp = {var:var ** 3 for var in input_list if var % 2 != 0}
+        print("Output Dictionary using dictionary comprehensions:",dict_using_comp)
+
+        Another example of mapping two lists and convert them into a dictionary:
+
+        state = ['Gujarat', 'Maharashtra', 'Rajasthan']
+        capital = ['Gandhinagar', 'Mumbai', 'Jaipur']
+        dict_using_comp = {key:value for (key, value) in zip(state, capital)}
+        print("Output Dictionary using dictionary comprehensions:", 
+                                           dict_using_comp)
+
+        SETS
+
+        Set comprehensions are pretty similar to list comprehensions. The only difference between them is that set comprehensions use 
+        curly brackets { }
+
+        Example
+        input_list = [1, 2, 3, 4, 4, 5, 6, 6, 6, 7, 7]
+        set_using_comp = {var for var in input_list if var % 2 == 0}
+        print("Output Set using set comprehensions:", set_using_comp)
+
+        GENERATORS
+
+        Generator Comprehensions are very similar to list comprehensions. One difference between them is that generator comprehensions use 
+        circular brackets whereas list comprehensions use square brackets. The major difference between them is that generators don’t 
+        allocate memory for the whole list. Instead, they generate each value one by one which is why they are memory efficient.
+
+        input_list = [1, 2, 3, 4, 4, 5, 6, 7, 7]
+        output_gen = (var for var in input_list if var % 2 == 0)
+        print("Output values using generator comprehensions:", end = ' ')
+        for var in output_gen: 
+            print(var, end = ' ')
+
+        Output values using generator comprehensions: 2 4 4 6 
+
     --Generator functions and the yield statement.
+        A Python generator function allows you to declare a function that behaves like an iterator, providing a faster and easier way to 
+        create iterators. They can be used on an abstract container of data to turn it into an iterable object like lists, dictionaries 
+        and strings. The yield instruction stops the flow of the program and returns the value at the time yield is called, so then the 
+        program resumes with the next instruction its flow with the value returned and continues until the next yield instruction. 
+        In ohter words: For starters, yield saves the state of the function. The next time the function is called, execution continues from 
+        where it left off, with the same variable values it had before yielding, whereas the return statement terminates the function 
+        completely. Another difference is that generator functions don’t even run a function, it only creates and returns a generator object.
+        Lastly, the code in generator functions only execute when next() is called on the generator object.
+
+        def get_odds_generator():
+            n=1
+            
+            n+=2 
+            yield n
+            
+            n+=2
+            yield n 
+            
+            n+=2
+            yield n
+        
+        numbers=get_odds_generator()
+        print(next(numbers))
+        print(next(numbers))
+        print(next(numbers))
+        # Output
+        3
+        5
+        7
+
     --Classes, data classes, named tuples.
+
+
+
 3- Combinatorics
+
     --Power set.
+        Power Set: Power set P(S) of a set S is the set of all subsets of S. For example S = {a, b, c} then P(s) = {{}, {a}, {b}, {c}, {a,b}, {a, c}, {b, c}, {a, b, c}}.
+        If S has n elements in it then P(s) will have 2n elements
+
     --Combinations (with and without repetitions).
+        The combinations are every possible selection of some, none, or all of the values
+        Without repetition: 2^N
+        With repetition: 2N! / (N!)^2
+
+        Example: Set {A,B,C}
+        Combinations: None,A, B, C, AB, AC, BC, ABC
+
     --Permutations (with and without repetitions).
+        The permutations of an iterable are every possible ordering of all of the values,
+        Without repetition: N!
+        With repetition: N^N
+
+        Example: Set {A,B,C}
+        Permutations: ABC, ACB, BAC, BCA, CAB	
+
 4- Search algorithms.
+
     --Depth-first search (DFS).
+
+        Is an edge-based technique. It uses the Stack data structure and performs two stages, first visited vertices are pushed into the 
+        stack, and second if there are no vertices then visited vertices are popped. 
+
+        Example:
+        A
+       / \
+      B   D
+     /   / \
+    C   E   F
+
+        Output: A, B, C, D, E, F
+
     --Breadth-first search (BFS).
+        Is a vertex-based technique for finding the shortest path in the graph. It uses a Queue data structure that follows first in 
+        first out. In BFS, one vertex is selected at a time when it is visited and marked then its adjacent are visited and stored in 
+        the queue. It is slower than DFS. 
+
+        Example:
+                
+        A
+       / \
+      B   C
+     /   / \
+    D   E   F
+
+        Output: A, B, C, D, E, F
+
     --A* search.
+
+        A* is based on using heuristic methods to achieve optimality and completeness, and is a variant of the best-first algorithm.
+
+        When a search algorithm has the property of optimality, it means it is guaranteed to find the best possible solution, in our case 
+        the shortest path to the finish state. When a search algorithm has the property of completeness, it means that if a solution to a 
+        given problem exists, the algorithm is guaranteed to find it.
+
+        Explanation:
+
+        Consider a square grid having many obstacles and we are given a starting cell and a target cell. We want to reach the target cell 
+        (if possible) from the starting cell as quickly as possible. Here A* Search Algorithm comes to the rescue.
+        What A* Search Algorithm does is that at each step it picks the node according to a value-‘f’ which is a parameter equal to the 
+        sum of two other parameters – ‘g’ and ‘h’. At each step it picks the node/cell having the lowest ‘f’, and process that node/cell.
+        We define ‘g’ and ‘h’ as simply as possible below:
+        g = the movement cost to move from the starting point to a given square on the grid, following the path generated to get there. 
+        h = the estimated movement cost to move from that given square on the grid to the final destination. This is often referred to as 
+        the heuristic, which is nothing but a kind of smart guess. We really don’t know the actual distance until we find the path, 
+        because all sorts of things can be in the way (walls, water, etc.).
+
     --Constraint-satisfaction problems (CSP).
+
+        CSP is a specific type of problem-solving approach that involves identifying constraints that must be satisfied and finding a 
+        solution that satisfies all the constraints. CSP has been used in a variety of applications, including scheduling, planning, 
+        resource allocation, and automated reasoning.
+
+        A Constraint Satisfaction Problem in artificial intelligence involves a set of variables, each of which has a domain of possible 
+        values, and a set of constraints that define the allowable combinations of values for the variables. The goal is to find a value 
+        for each variable such that all the constraints are satisfied.
+
+        More formally, a CSP is defined as a triple (X,D,C), where:
+
+            X is a set of variables {x1,x2,x3}
+            D is a set of domains {D1,D2,D3} where each D is the set of possible values of X
+            C is a set of constraints {C1,C2,C3} where each C is a constraint that restricts the values that can be assigned to a subset of 
+            the variables
+
+        The goal of a CSP is to find an assignment of values to the variables that satisfies all the constraints. This assignment is called 
+        a solution to the CSP.
+
+        A state-space
+        Solving a CSP typically involves searching for a solution in the state space of possible assignments to the variables. 
+        The state-space is a set of all possible configurations of variable assignments, each of which is a potential solution to the 
+        problem. The state space can be searched using various algorithms, including backtracking, forward checking, and local search.
+
+        The notion of the solution
+        The notion of a solution in CSP depends on the specific problem being solved. In general, a solution is a complete assignment of 
+        values to all the variables in a way that satisfies all the constraints. For example, in a scheduling problem, a solution would 
+        be a valid schedule that satisfies all the constraints on task scheduling and resource allocation.
+
+
+
 5- Priority queues.
+
+        Priority Queues are abstract data structures where each data/value in the queue has a certain priority. For example, In airlines, 
+        baggage with the title “Business” or “First-class” arrives earlier than the rest.
+
+        Priority Queue is an extension of the queue with the following properties.
+
+        1- An element with high priority is dequeued before an element with low priority.
+        2- If two elements have the same priority, they are served according to their order in the queue.
+
+        A heap in Python is a data structure based on a unique binary tree designed to efficiently access the smallest or largest element 
+        in a collection of items. 
+
     --Min heaps and max heaps.
+
+        Max heap: When the value of each internal node is larger than or equal to the value of its children node then it is called the 
+        Max-Heap Property. Also, in a max-heap, the value of the root node is largest among all the other nodes of the tree.
+
+        Min Heap: When the value of each internal node is smaller than the value of its children node then it is called the Min-Heap 
+        Property. Also, in the min-heap, the value of the root node is the smallest among all the other nodes of the tree.
+
     --Heap insertion and deletion.
+
+        Deletion: Since deleting an element at any intermediary position in the heap can be costly, so we can simply replace the element 
+        to be deleted by the last element and delete the last element of the Heap. 
+
+        -Replace the root or element to be deleted by the last element.
+        -Delete the last element from the Heap.
+        -Since, the last element is now placed at the position of the root node. So, it may not follow the heap property. Therefore, 
+        heapify the last node placed at the position of root.
+
+        Insertion: Elements can be inserted to the heap following a similar approach as discussed above for deletion. 
+        The idea is to: 
+        -First increase the heap size by 1, so that it can store the new element.
+        -Insert the new element at the end of the Heap.
+        -This newly inserted element may distort the properties of Heap for its parents. So, in order to keep the properties of Heap, 
+        heapify this newly inserted element following a bottom-up approach.
+
     --Heapsort
+
+        Heapsort is a comparison-based sorting technique based on a Binary Heap data structure. It is similar to selection sort where we 
+        first find the maximum element and place the maximum element at the end. We repeat the same process for the remaining element.
+
+        Heap Sort works by building a binary heap and repeatedly extracting the maximum element (in the case of a max heap) from the heap, which is then placed at 
+        the end of the sorted portion of the array. The code comprises three main functions: heapify, heapSort, and the driver code.
+        The heapify function is responsible for maintaining the heap property of the binary tree. Given an array, the function adjusts the element at index i such 
+        that the subtree rooted at index i satisfies the heap property, i.e., the parent is greater than its child nodes.
+
