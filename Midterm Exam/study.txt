@@ -13,13 +13,13 @@
 
     --Common Runtime Functions
         O(1): Accessing an array index, Stack follows Last In First Out sequence, in short LIFO, 
-        O(log N):
-        O(N):
+        O(log N): Binary search
+        O(N): 
         O(N log N): HeapSort, QuickSort, MergeSort, ShellSort
         O(N^2): BubbleSort, SelectionSort, InsertionSort
         O(N^3):
-        O(2^N):
-        O(N!):
+        O(2^N): Fuerza Bruta
+        O(N!): Taveling Salesperson
 
 2- Python language specific features.
     --Type hints
@@ -179,6 +179,8 @@
         7
 
     --Classes, data classes, named tuples.
+        Tuplas: una vez creadas no se pueden modificar. Se pueden recorrer y seleccionar elementos. 
+        Named tuple: Una tupla con llaves y especificación de tipo
 
 
 
