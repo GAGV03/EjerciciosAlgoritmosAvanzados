@@ -27,7 +27,7 @@ class Constraint(Generic[V, D], ABC):
     # The variables that the constraint is between
     def __init__(self, variables: list[V]) -> None:
         self.variables = variables
-
+        
     # Must be overridden by subclasses
     @abstractmethod
     def satisfied(self, assignment: dict[V, D]) -> bool:
