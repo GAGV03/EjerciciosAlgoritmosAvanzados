@@ -10,75 +10,61 @@
 
 
 from csp import Constraint, CSP
-from typing import Optional
+from typing import Optional, Dict,List
 
 class cryptoarithmetic_puzzle_Constraint(Constraint[str,int]):
     
-    def __init__(self, letras:list[str], palabras: list[str], respuesta: str) -> None:
+    def __init__(self, letras:List[str], palabras: List[str], respuesta: str, maxLen : int) -> None:
         super().__init__(letras)
-        self.letras: list[str] = letras
-        self.palabras: list[str] = palabras
+        self.letras: List[str] = letras
+        self.palabras: List[str] = palabras
         self.respuesta: str = respuesta
+        self.maxLen: int = maxLen
                 
-    def satisfied(self, assignment: dict[str, int]) -> bool:
+    def satisfied(self, assignment: Dict[str, int]) -> bool:
         if len(set(assignment.values())) < len(assignment):
             return False
         
         if len(assignment) == len(self.letras):
-            a: int = assignment["A"]
-            b: int = assignment["B"]
-            c: int = assignment["C"]
-            d: int = assignment["D"]
-            e: int = assignment["E"]
-            f: int = assignment["F"]
-            g: int = assignment["G"]
-            h: int = assignment["H"]
-            i: int = assignment["I"]
-            j: int = assignment["J"]
-            k: int = assignment["K"]
-            l: int = assignment["L"]
-            m: int = assignment["M"]
-            n: int = assignment["N"]
-            o: int = assignment["O"]
-            p: int = assignment["P"]
-            q: int = assignment["Q"]
-            r: int = assignment["R"]
-            s: int = assignment["S"]
-            t: int = assignment["T"]
-            u: int = assignment["U"]
-            v: int = assignment["V"]
-            w: int = assignment["W"]
-            x: int = assignment["X"]
-            y: int = assignment["Y"]
-            z: int = assignment["Z"]
-            #Aqui se deben mandar las palabras y sumar
-            for palabra in self.palabras:
-                ...
-            return False
+            sumSumandos: int = 0
+            for i in range (self.maxLen):
+                for palabra in self.palabras:
+                    if i < len(palabra):
+                        indice : int = (len(palabra) -1 -i)
+                        sumSumandos += (assignment[palabra[indice]]) * pow (10,i)    
+            sumResultado : int = 0
+            for i in range(len(self.respuesta)):
+                indice2: int = (len(self.respuesta) -1 -i)
+                sumResultado += (assignment[self.respuesta[indice2]]) * pow (10,i)
+            return sumSumandos == sumResultado
         return True
 
 def solve_cryptarithmetic_puzzle(addends: list[str],answer: str) -> Optional[dict[str, int]]:
-    temp = addends
-    temp.append(answer)
-    letrasTemp = set()
-    a = ''.join([str(item).upper() for item in temp])
-    for letrita in a:
-        letrasTemp.add(str(letrita))
-    letras  = list(a)
+    maxLen : int = 0
+    for pal in addends:
+        if len(pal) > maxLen:
+            maxLen = len(pal)
+    letras : List[str] = []
+    temporal = addends.copy()
+    temporal.append(answer)
+    juntos = ''.join(elem for elem in temporal)
+    for letra in juntos:
+        if letra not in letras:
+            letras.append(letra)
     letras.sort()
-    valores_posibles : dict[str,list[int]] = {}
+    valores_posibles : Dict[str,List[int]] = {}
     for letra in letras:
         valores_posibles[letra] = [0,1,2,3,4,5,6,7,8,9]
     csp : CSP[str,int] = CSP(letras,valores_posibles)
-    csp.add_constraint(cryptoarithmetic_puzzle_Constraint(letras,addends,answer))
+    csp.add_constraint(cryptoarithmetic_puzzle_Constraint(letras,addends,answer,maxLen))
     solucion : Optional[dict[str,int]] = csp.backtracking_search()
     if solucion is None:
-        print('No hay solución')
         return None
     else:
-        print('La solución es: ')
-        return solucion
+        solFinal = {key.upper(): val for key, val in solucion.items()}
+        return solFinal
 
 
 if __name__ == '__main__':
-    solve_cryptarithmetic_puzzle(['hola','buenos','dias'],'no')
+    print(solve_cryptarithmetic_puzzle(['i','luv','u'],'yes'))
+    
