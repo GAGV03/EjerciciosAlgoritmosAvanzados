@@ -1,0 +1,11 @@
+A spanning tree of a connected graph is a subgraph that includes all the vertices of the original granph and forms a tree wihtout any cyles.
+Properties:
+- It has n-1 edges where n is the number of vertices
+- A complete graph can have n ^ n-2 different spanning tree
+
+Connected graph: From any vertex you can reach any other, but they are not directly connected
+Complete graph: Every vertex is connected to every other
+Undirected graph: You can reach a vertex by different paths or ways.
+
+Formula to calculate edges: (n*(n-1))/2
+
