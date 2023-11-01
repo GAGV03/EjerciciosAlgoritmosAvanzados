@@ -28,17 +28,24 @@ def depth_first_search(start: str, graph: Graph) -> Iterator[str]:
     stack.append(start)
     while stack:
         current: str = stack.pop()
+        print("Este es current: " + current)
         if current not in visited:
             stack.extend(graph[current][::-1])    
             visited.add(current)
             print("Visitados")
             print(visited)
             print("Padre actual: " + parent)
-            print("Current: " + current)
             print("-----------------------------")
             parent = current
-        elif current in visited and current != parent:
-            yield current
+            print(stack)
+        elif current in visited:
+            print("Este ya fue visitado" + current)
+            if current is not parent:
+                print("Ya fue visitado y no es parent")
+                print(visited)
+                yield current
+            else:
+                visited.add(current)
             
             
             
