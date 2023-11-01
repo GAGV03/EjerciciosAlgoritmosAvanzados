@@ -4,13 +4,11 @@ from collections  import deque
 Graph = dict[str,list[str]]
 
 g: Graph = {
-    'A' : ['B','C','D'],
-    'B' : ['A','D'],
-    'C' : ['A','E','F'],
-    'D' : ['B'],
-    'E' : ['C','F'],
-    'F' : ['A','C','E','G'],
-    'G' : ['F']
+    'A': ['B', 'C'],
+    'B': ['A', 'D'],
+    'C': ['A', 'D'],
+    'D': ['B', 'C', 'E'],
+    'E': ['D']
 }
 
 def depth_first_search(
