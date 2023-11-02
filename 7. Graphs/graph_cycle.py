@@ -14,45 +14,54 @@ from collections  import deque
 Graph = dict[str,list[str]]
 
 g: Graph = {
-    'A': ['B', 'C', 'D'],
-    'B': ['A', 'C', 'D'],
-    'C': ['A', 'B', 'D', 'E'],
-    'D': ['A', 'B', 'C', 'E'],
-    'E': ['C', 'D']
+                'A': ['B'],
+                'B': ['A', 'D'],
+                'C': ['D'],
+                'D': ['B', 'C', 'E'],
+                'E': ['D']
 }
 
-def depth_first_search(start: str, graph: Graph) -> Iterator[str]:
+def depth_first_search(start: str, graph: Graph) -> Optional[list[str]]:
     parent: str = ""
+    prev_parent = ""
     stack: deque[str] = deque()
     visited: set[str] = set() 
+    visitados: list[str] = list()
     stack.append(start)
     while stack:
         current: str = stack.pop()
-        print("Este es current: " + current)
+        print("Nodo actual: " + current)
+        print("Padre actual: " + parent)
+        print("Padre anterior: " + prev_parent)
         if current not in visited:
             stack.extend(graph[current][::-1])    
-            visited.add(current)
-            print("Visitados")
-            print(visited)
-            print("Padre actual: " + parent)
-            print("-----------------------------")
-            parent = current
+            print("La stack actual es: ")
             print(stack)
+            visited.add(current)
+            visitados.append(current)
+            prev_parent = parent
+            parent = current
         elif current in visited:
-            print("Este ya fue visitado" + current)
-            if current is not parent:
-                print("Ya fue visitado y no es parent")
-                print(visited)
-                yield current
+            if current is not prev_parent:
+                visitados.append(current)
+                pos_current = visitados.index(current)
+                resultado = visitados[pos_current:]
+                return resultado
             else:
-                visited.add(current)
+                visitados.append(current)
+                print("EL NODO ACTUAL ES EL ANTIGUO PADRE")
+                pass
+    return None
             
             
             
         
 def has_cycle(initial: str, graph: Graph) -> Optional[list[str]]:
-    lista = list(depth_first_search(initial,graph))
-    return lista
+    if depth_first_search(initial,graph) is None:
+        return None
+    else:
+        lista = depth_first_search(initial,graph)
+        return lista
             
 if __name__ == '__main__':
-    print(has_cycle("D",g))
+    print(has_cycle("E",g))
