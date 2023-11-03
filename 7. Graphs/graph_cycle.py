@@ -16,14 +16,15 @@ Graph = dict[str,list[str]]
 g: Graph = {
                 'A': ['B'],
                 'B': ['A', 'D'],
-                'C': ['D'],
-                'D': ['B', 'C', 'E'],
-                'E': ['D']
+                'C': ['D', 'E'],
+                'D': ['B', 'C', 'E', 'F'],
+                'E': ['C', 'D', 'F'],
+                'F': ['D', 'E']
 }
 
 def depth_first_search(start: str, graph: Graph) -> Optional[list[str]]:
     parent: str = ""
-    prev_parent = ""
+    prev_parent: str = ""
     stack: deque[str] = deque()
     visited: set[str] = set() 
     visitados: list[str] = list()
@@ -48,9 +49,9 @@ def depth_first_search(start: str, graph: Graph) -> Optional[list[str]]:
                 resultado = visitados[pos_current:]
                 return resultado
             else:
-                visitados.append(current)
                 print("EL NODO ACTUAL ES EL ANTIGUO PADRE")
-                pass
+                print(stack)
+                continue
     return None
             
             
@@ -64,4 +65,4 @@ def has_cycle(initial: str, graph: Graph) -> Optional[list[str]]:
         return lista
             
 if __name__ == '__main__':
-    print(has_cycle("E",g))
+    print(has_cycle("F",g))
