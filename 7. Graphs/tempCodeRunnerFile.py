@@ -1,4 +1,3 @@
-                'A': ['B'],
-                'B': ['A', 'C'],
-                'C': ['B', 'D'],
-                'D': ['C'],
+        elif len(stack_reversa) > len_prev_stavRev:
+                print("Switch prendido")
+                switch_bucle = True
