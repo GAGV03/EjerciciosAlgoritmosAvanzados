@@ -1,3 +1,5 @@
+import math
+
 #----------------------------------------------------------
 # Lab #7: Dijkstra’s Shortest-Path Tree
 #
@@ -12,16 +14,43 @@ WeightedGraph = dict[str, set[tuple[str, float]]]
 
 def dijkstra_spt(initial: str,graph: WeightedGraph) -> tuple[dict[str, float], WeightedGraph]:
     
-    visited: set[str]
-    univisited: set[str]
-    cost_dict: dict[str,int]= {}
+    visited: set[str] = set()
+    unvisited: set[str] = set()
+    prev_vertex: dict[str,str] = {}
+    cost_dict: dict[str,float]= {}
     resulting_spt: WeightedGraph = {}
+    costos: list[float] = []
+            
+    for vertex in graph:
+        unvisited.add(vertex)
+        if vertex is initial:
+            cost_dict[vertex] = 0
+        else:
+            cost_dict[vertex] = math.inf
+        
+    while unvisited:
+        for v in unvisited:
+            costos.append(cost_dict[v])
+        costo_minimo = min(costos)
+        value = {i for i in cost_dict if cost_dict[i] == costo_minimo}
+        min_vert = "".join(value)
+        neighbors = graph[min_vert]
+        for neighbor in neighbors:
+            if neighbor[0] not in visited:
+                cost = cost_dict[min_vert] + neighbor[1]
+                if cost < cost_dict[neighbor[0]]:
+                    cost_dict[neighbor[0]] = cost
+        unvisited.remove(min_vert)
+        visited.add(min_vert)
+        costos.clear()
+    print(cost_dict)
     
-    for i in graph:
-        print(i)
-    
-    
-    
-    # The function's code goes here
-    ...
     return ({},{})
+
+if __name__ == '__main__':
+    dijkstra_spt('A', {'A': {('B', 5), ('C', 10), ('E', 6)},
+                   'B': {('A', 5), ('D', 2)},
+                   'C': {('A', 10), ('D', 1), ('E', 3)},
+                   'D': {('B', 2), ('C', 1), ('E', 4)},
+                   'E': {('A', 6), ('C', 3), ('D', 4)},
+                  })
