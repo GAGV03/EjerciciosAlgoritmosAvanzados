@@ -20,6 +20,7 @@ def dijkstra_spt(initial: str,graph: WeightedGraph) -> tuple[dict[str, float], W
     cost_dict: dict[str,float]= {}
     resulting_spt: WeightedGraph = {}
     costos: list[float] = []
+    vecinitos: list[float] = []
             
     for vertex in graph:
         unvisited.add(vertex)
@@ -40,11 +41,15 @@ def dijkstra_spt(initial: str,graph: WeightedGraph) -> tuple[dict[str, float], W
                 cost = cost_dict[min_vert] + neighbor[1]
                 if cost < cost_dict[neighbor[0]]:
                     cost_dict[neighbor[0]] = cost
+                    prev_vertex[neighbor[0]] = min_vert
         unvisited.remove(min_vert)
         visited.add(min_vert)
         costos.clear()
-    print(cost_dict)
     
+    for i in sorted(prev_vertex):
+        resulting_spt[prev_vertex[i]]
+        
+    print(resulting_spt)
     return ({},{})
 
 if __name__ == '__main__':
