@@ -46,8 +46,8 @@ def dijkstra_spt(initial: str,graph: WeightedGraph) -> tuple[dict[str, float], W
         visited.add(min_vert)
         costos.clear()
     
-    for i in sorted(prev_vertex):
-        resulting_spt[prev_vertex[i]]
+    # for i in sorted(prev_vertex):
+    #     resulting_spt[prev_vertex[i]]
         
     print(resulting_spt)
     return ({},{})
