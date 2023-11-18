@@ -35,15 +35,19 @@ def dijkstra_spt(initial: str,graph: WeightedGraph) -> tuple[dict[str, float], W
             costos.append(cost_dict[v])
         costo_minimo = min(costos)
         value = {i for i in cost_dict if cost_dict[i] == costo_minimo}
+        
         min_vert = "".join(value)
-        neighbors = graph[min_vert] #El pedo está aquí en 4 tests
+        if(len(min_vert)>1):
+            min_vert = min_vert[0]
+            print("fue cortado: "+min_vert)
+        neighbors = graph[min_vert] #El pedo está aquí en 4 tests, usar el más chiquito en nombre
         for neighbor in neighbors:
             if neighbor[0] not in visited:
                 cost = cost_dict[min_vert] + neighbor[1]
                 if cost < cost_dict[neighbor[0]]:
                     cost_dict[neighbor[0]] = cost
                     shortest_path[neighbor[0]] = min_vert
-        unvisited.remove(min_vert)
+        unvisited.remove(min_vert) #Segundo pedo
         visited.add(min_vert)
         costos.clear()
         
