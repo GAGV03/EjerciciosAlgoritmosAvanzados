@@ -1,6 +1,4 @@
 import math
-from typing import NamedTuple, Optional
-from heapq import heapify,heappop
 
 #----------------------------------------------------------
 # Lab #7: Dijkstra’s Shortest-Path Tree
@@ -35,12 +33,13 @@ def dijkstra_spt(initial: str,graph: WeightedGraph) -> tuple[dict[str, float], W
             costos.append(cost_dict[v])
         costo_minimo = min(costos)
         value = {i for i in cost_dict if cost_dict[i] == costo_minimo}
-        
-        min_vert = "".join(value)
-        if(len(min_vert)>1):
-            min_vert = min_vert[0]
-            print("fue cortado: "+min_vert)
-        neighbors = graph[min_vert] #El pedo está aquí en 4 tests, usar el más chiquito en nombre
+        min_vert = "".join(value) #ABCD
+        if len(min_vert)>1:
+            min_vert_sort = sorted(min_vert)
+            for i in min_vert_sort:
+                if i in unvisited:
+                    min_vert = i
+        neighbors = graph[min_vert] 
         for neighbor in neighbors:
             if neighbor[0] not in visited:
                 cost = cost_dict[min_vert] + neighbor[1]
@@ -81,9 +80,13 @@ def dijkstra_spt(initial: str,graph: WeightedGraph) -> tuple[dict[str, float], W
 
 
 if __name__ == '__main__':
-    print(dijkstra_spt('A', {'A': {('B', 5), ('C', 10), ('E', 6)},
-                   'B': {('A', 5), ('D', 2)},
-                   'C': {('A', 10), ('D', 1), ('E', 3)},
-                   'D': {('B', 2), ('C', 1), ('E', 4)},
-                   'E': {('A', 6), ('C', 3), ('D', 4)},
+    print(dijkstra_spt('D', {'A': {('B', 4), ('E', 8)},
+    'B': {('A', 4), ('E', 11), ('C', 8)},
+    'C': {('B', 8), ('I', 2), ('G', 4), ('D', 7)},
+    'D': {('C', 7), ('G', 14), ('H', 9)},
+    'E': {('A', 8), ('B', 11), ('I', 7), ('F', 1)},
+    'F': {('E', 1), ('I', 6), ('G', 2)},
+    'G': {('F', 2), ('C', 4), ('D', 14), ('H', 10)},
+    'H': {('D', 9), ('G', 10)},
+    'I': {('C', 2), ('E', 7), ('F', 6)},
                   }))
