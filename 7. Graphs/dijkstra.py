@@ -6,7 +6,7 @@ import math
 # Date: 18-Nov-2023
 # Authors:
 #           A01747869 Gustavo Gutiérrez
-#           A01777771 Erickx Navarro
+#           A01746219 Eric Navarro
 #----------------------------------------------------------
 
 WeightedGraph = dict[str, set[tuple[str, float]]]
@@ -33,7 +33,7 @@ def dijkstra_spt(initial: str,graph: WeightedGraph) -> tuple[dict[str, float], W
             costos.append(cost_dict[v])
         costo_minimo = min(costos)
         value = {i for i in cost_dict if cost_dict[i] == costo_minimo}
-        min_vert = "".join(value) #ABCD
+        min_vert = "".join(value) 
         if len(min_vert)>1:
             min_vert_sort = sorted(min_vert)
             for i in min_vert_sort:
@@ -46,7 +46,7 @@ def dijkstra_spt(initial: str,graph: WeightedGraph) -> tuple[dict[str, float], W
                 if cost < cost_dict[neighbor[0]]:
                     cost_dict[neighbor[0]] = cost
                     shortest_path[neighbor[0]] = min_vert
-        unvisited.remove(min_vert) #Segundo pedo
+        unvisited.remove(min_vert)
         visited.add(min_vert)
         costos.clear()
         
