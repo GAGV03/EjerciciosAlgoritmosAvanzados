@@ -36,7 +36,7 @@ def dijkstra_spt(initial: str,graph: WeightedGraph) -> tuple[dict[str, float], W
         costo_minimo = min(costos)
         value = {i for i in cost_dict if cost_dict[i] == costo_minimo}
         min_vert = "".join(value)
-        neighbors = graph[min_vert] 
+        neighbors = graph[min_vert] #El pedo está aquí en 4 tests
         for neighbor in neighbors:
             if neighbor[0] not in visited:
                 cost = cost_dict[min_vert] + neighbor[1]
@@ -50,8 +50,6 @@ def dijkstra_spt(initial: str,graph: WeightedGraph) -> tuple[dict[str, float], W
     for visit in sorted(visited):
         for vertshort in shortest_path: 
             if visit == vertshort:
-                print('Vertshort ' + vertshort)
-                print('****')
                 for vecino, costo in graph[vertshort]:
                     if vecino == shortest_path[vertshort]:
                         if visit not in resulting_spt:
@@ -64,8 +62,6 @@ def dijkstra_spt(initial: str,graph: WeightedGraph) -> tuple[dict[str, float], W
                             tempset = set()
                         
             elif visit == shortest_path[vertshort]:
-                print('ShortestPath[vershort] ' + shortest_path[vertshort])
-                print('****')
                 for vecino, costo in graph[shortest_path[vertshort]]:
                     if vecino == vertshort:
                         if visit not in resulting_spt:    
@@ -76,15 +72,14 @@ def dijkstra_spt(initial: str,graph: WeightedGraph) -> tuple[dict[str, float], W
                             tempset.add((vecino,costo))
                             resulting_spt[visit].update(tempset)
                             tempset = set()
+                            
+    return (cost_dict,resulting_spt)
 
-    print(resulting_spt)
-
-    return ({},{})
 
 if __name__ == '__main__':
-    dijkstra_spt('A', {'A': {('B', 5), ('C', 10), ('E', 6)},
+    print(dijkstra_spt('A', {'A': {('B', 5), ('C', 10), ('E', 6)},
                    'B': {('A', 5), ('D', 2)},
                    'C': {('A', 10), ('D', 1), ('E', 3)},
                    'D': {('B', 2), ('C', 1), ('E', 4)},
                    'E': {('A', 6), ('C', 3), ('D', 4)},
-                  })
+                  }))

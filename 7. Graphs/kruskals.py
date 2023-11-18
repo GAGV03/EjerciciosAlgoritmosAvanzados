@@ -60,8 +60,8 @@ def has_cycle(
     return False
     
 def kruskal_mst(graph: WeightedGraph) -> tuple[int,WeightedGraph]:
-    queue: list [Edge] = make_heap(graph) #Este sería prev_vertex
-    result: WeightedGraph = {k: set () for k in graph} #Hay que hacer esta cosa
+    queue: list [Edge] = make_heap(graph) 
+    result: WeightedGraph = {k: set () for k in graph} 
     remaining_edges: int = len(graph) - 1 #
     total = int = 0
     visited: set [str] = set()
