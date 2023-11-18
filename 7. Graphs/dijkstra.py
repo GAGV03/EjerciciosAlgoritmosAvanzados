@@ -5,54 +5,24 @@ from heapq import heapify,heappop
 #----------------------------------------------------------
 # Lab #7: Dijkstra’s Shortest-Path Tree
 #
-# Date: 17-Nov-2023
+# Date: 18-Nov-2023
 # Authors:
 #           A01747869 Gustavo Gutiérrez
 #           A01777771 Erickx Navarro
 #----------------------------------------------------------
 
 WeightedGraph = dict[str, set[tuple[str, float]]]
-
-class Edge(NamedTuple):
     
-    weight: float
-    u: str
-    v: str
-    
-    def __eq__(self, other:object) -> bool: 
-        if isinstance(other,Edge):
-            return (self.weight == other.weight and ((self.u == other.u and self.v == other.v) or (self.u == other.v and self.v == other.u)))
-        else:
-            return False
-        
-    def __hash__(self) -> int:
-        return hash(self.weight) + hash(self.u) + hash(self.v)
-    
-    
-def make_heap(graph: WeightedGraph) -> list[Edge]:
-    result : set [Edge] = set()
-    u : str
-    neighbors: set[tuple[str,float]]
-    for u, neighbors in graph.items():
-        v: str
-        weight: float
-        for v, weight in neighbors:
-            result.add(Edge(weight,u,v))
-    queue: list [Edge] = list(result)
-    heapify(queue)
-    return queue
-    
-
 def dijkstra_spt(initial: str,graph: WeightedGraph) -> tuple[dict[str, float], WeightedGraph]:
     
+    tempset: set[tuple[str,float]] = set()
     visited: set[str] = set()
     unvisited: set[str] = set()
-    prev_vertex: dict[str,str] = {}
+    shortest_path: dict[str,str] = {}
     cost_dict: dict[str,float]= {}
     resulting_spt: WeightedGraph = {}
     costos: list[float] = []
-    vecinitos: list[float] = []
-            
+                
     for vertex in graph:
         unvisited.add(vertex)
         if vertex is initial:
@@ -72,19 +42,45 @@ def dijkstra_spt(initial: str,graph: WeightedGraph) -> tuple[dict[str, float], W
                 cost = cost_dict[min_vert] + neighbor[1]
                 if cost < cost_dict[neighbor[0]]:
                     cost_dict[neighbor[0]] = cost
-                    prev_vertex[neighbor[0]] = min_vert
+                    shortest_path[neighbor[0]] = min_vert
         unvisited.remove(min_vert)
         visited.add(min_vert)
         costos.clear()
         
-    print(cost_dict)
-    for i in sorted(prev_vertex):
-        print('{' + prev_vertex[i] + ', ' + i + '}')
-    
+    for visit in sorted(visited):
+        for vertshort in shortest_path: 
+            if visit == vertshort:
+                print('Vertshort ' + vertshort)
+                print('****')
+                for vecino, costo in graph[vertshort]:
+                    if vecino == shortest_path[vertshort]:
+                        if visit not in resulting_spt:
+                            tempset.add((vecino,costo))
+                            resulting_spt[visit] = tempset
+                            tempset = set()
+                        else:
+                            tempset.add((vecino,costo))
+                            resulting_spt[visit].update(tempset)
+                            tempset = set()
+                        
+            elif visit == shortest_path[vertshort]:
+                print('ShortestPath[vershort] ' + shortest_path[vertshort])
+                print('****')
+                for vecino, costo in graph[shortest_path[vertshort]]:
+                    if vecino == vertshort:
+                        if visit not in resulting_spt:    
+                            tempset.add((vecino,costo))
+                            resulting_spt[visit] = tempset
+                            tempset=set()
+                        else:
+                            tempset.add((vecino,costo))
+                            resulting_spt[visit].update(tempset)
+                            tempset = set()
+
+    print(resulting_spt)
+
     return ({},{})
 
-    
-    
 if __name__ == '__main__':
     dijkstra_spt('A', {'A': {('B', 5), ('C', 10), ('E', 6)},
                    'B': {('A', 5), ('D', 2)},

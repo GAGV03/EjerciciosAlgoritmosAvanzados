@@ -78,7 +78,6 @@ def kruskal_mst(graph: WeightedGraph) -> tuple[int,WeightedGraph]:
             remaining_edges -= 1
     return (total,result)
         
-    
 if __name__ == '__main__':
     g1: WeightedGraph = {
         'A': {('B',4),('C',5)},
