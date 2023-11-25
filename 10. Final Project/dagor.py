@@ -1143,7 +1143,7 @@ class JugadorCaballosBailadores(Jugador):
         rN: Tupla (r, c) con la coordenada del rey negro (fija
             durante todo el juego)
         cB: Tupla (r, c) con la coordenada del caballo blanco
-        cN: Tupla (r, c) con la coordenada del caballo blanco
+        cN: Tupla (r, c) con la coordenada del caballo negro
 
     Por ejemplo:
 
