@@ -55,7 +55,8 @@ class JugadorCaballosBailadoresEquipo7(JugadorCaballosBailadores):
     #Debe regresar true si el siguiente tiro es un tiro ganador, en caso contrario regresará
     def heuristica(self, posicion):
         
-        return self.evaluate(self.Minimax(posicion,3,-math.inf,math.inf))
+        #return self.evaluate(self.Minimax(posicion,3,-math.inf,math.inf))
+        return 0
     
     def tira(self, posicion):
         alternativas = self.posiciones_siguientes(posicion)
@@ -82,7 +83,7 @@ class JugadorCaballosBailadoresEquipo7(JugadorCaballosBailadores):
                 if beta <= alfa:
                     break
             return maxValue
-        if posicion[0] != self._contrario: #Turno del MinPlayer
+        if posicion[0] != self.simbolo: #Turno del MinPlayer
             minValue = math.inf
             for nextPos in self.posiciones_siguientes(posicion):
                 value = self.Minimax(nextPos,profundidad-1,alfa,beta)
