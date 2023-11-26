@@ -51,52 +51,48 @@ el tablero en este momento es:
 from dagor import JuegoCaballosBailadores, JugadorCaballosBailadores, JugadorCaballosBailadoresAleatorio
 import math
 
-class JugadorCaballosBailadoresEquipo7(JugadorCaballosBailadores):
-    #Debe regresar true si el siguiente tiro es un tiro ganador, en caso contrario regresará
+class JugadorCaballosBailadoresEquipo4(JugadorCaballosBailadores):
+   
     def heuristica(self, posicion):
-        
-        #return self.evaluate(self.Minimax(posicion,3,-math.inf,math.inf))
-        return 0
+        return self.triunfo(posicion) == self.simbolo
     
     def tira(self, posicion):
-        alternativas = self.posiciones_siguientes(posicion)
-        for pos in alternativas:
-            if self.heuristica(pos):
-                return pos
-            return alternativas[0]
+        best_eval  = -math.inf
+        best_pos = posicion
+        for movimiento in self.posiciones_siguientes(posicion):
+            resultado = self.MinimaxAlphaBeta(movimiento,3,True)
+            if resultado > best_eval:
+                best_eval = resultado
+                best_pos = movimiento
+        return best_pos
         
-    def evaluate(self,posicion):
+    def evaluate(self,posicion) -> float:
         if self.triunfo(posicion) == self.simbolo:
             return 1
-        elif self.triunfo(posicion) != None and self.triunfo(posicion) != self.simbolo:
+        else:
             return -1
         
-    def Minimax(self,posicion,profundidad,alfa,beta):
-        if self.triunfo(posicion) != None or profundidad == 0:
+    def MinimaxAlphaBeta(self,posicion,profundidad : int, maxPlayer: bool, alfa: float = -math.inf, beta: float = math.inf) -> float:
+        if self.triunfo != None or profundidad == 0:
             return self.evaluate(posicion)
-        if posicion[0] == self._simbolo: #Turno del MaxPlayer
-            maxValue = -math.inf
+        if maxPlayer: #Turno del MaxPlayer
             for nextPos in self.posiciones_siguientes(posicion):
-                value = self.Minimax(nextPos,profundidad-1,alfa,beta)
-                maxValue = max(maxValue,value)
-                alfa = max(alfa,value)
+                resultado: float = self.MinimaxAlphaBeta(nextPos,profundidad-1,False,alfa,beta)
+                alfa = max(alfa,resultado)
                 if beta <= alfa:
                     break
-            return maxValue
-        if posicion[0] != self.simbolo: #Turno del MinPlayer
-            minValue = math.inf
+            return alfa
+        else: #Turno del MinPlayer
             for nextPos in self.posiciones_siguientes(posicion):
-                value = self.Minimax(nextPos,profundidad-1,alfa,beta)
-                minValue = min(minValue,value)
-                beta = min(beta,value)
+                resultado = self.MinimaxAlphaBeta(nextPos,profundidad-1,True,alfa,beta)
+                beta = min(beta,resultado)
                 if beta <= alfa:
                     break
-            return minValue
-        
+            return beta
         
         
 if __name__ == '__main__':
-    jugador1 = JugadorCaballosBailadoresEquipo7('Player 1')
+    jugador1 = JugadorCaballosBailadoresEquipo4('Erickxzin')
     jugador2 = JugadorCaballosBailadoresAleatorio('Player 2')
     juego = JuegoCaballosBailadores(jugador1,jugador2,10,10)
     juego.inicia(veces=100,delta_max=2)
