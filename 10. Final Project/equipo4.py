@@ -32,7 +32,7 @@ class JugadorCaballosBailadoresEquipo4(JugadorCaballosBailadores):
             return -1
         
     def MinimaxAlphaBeta(self,posicion,profundidad : int, maxPlayer: bool, alfa: float = -math.inf, beta: float = math.inf) -> float:
-        if self.triunfo != None or profundidad == 0:
+        if self.heuristica(posicion) or profundidad == 0:
             return self.evaluate(posicion)
         if maxPlayer: 
             for nextPos in self.posiciones_siguientes(posicion):

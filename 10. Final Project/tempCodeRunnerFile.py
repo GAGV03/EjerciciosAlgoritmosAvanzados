@@ -1,1 +1,1 @@
-!= None and posicion[0] == self.simbolo
+maxPlayer
