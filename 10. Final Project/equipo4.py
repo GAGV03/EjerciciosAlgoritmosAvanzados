@@ -53,6 +53,6 @@ class JugadorCaballosBailadoresEquipo4(JugadorCaballosBailadores):
 if __name__ == '__main__':
     jugador1 = JugadorCaballosBailadoresEquipo4('Erickxzin')
     jugador2 = JugadorCaballosBailadoresAleatorio('Player 2')
-    juego = JuegoCaballosBailadores(jugador1,jugador2,10,10)
+    juego = JuegoCaballosBailadores(jugador1,jugador2,5,8)
     juego.inicia(veces=100,delta_max=2)
     
