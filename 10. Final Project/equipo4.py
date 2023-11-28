@@ -19,7 +19,7 @@ class JugadorCaballosBailadoresEquipo4(JugadorCaballosBailadores):
         best_eval  = -math.inf
         best_pos = posicion
         for movimiento in self.posiciones_siguientes(posicion):
-            resultado = self.MinimaxAlphaBeta(movimiento,3,True)
+            resultado = self.MinimaxAlphaBeta(movimiento,3,False)
             if resultado > best_eval:
                 best_eval = resultado
                 best_pos = movimiento
@@ -28,22 +28,24 @@ class JugadorCaballosBailadoresEquipo4(JugadorCaballosBailadores):
     def evaluate(self,posicion) -> float:
         if self.triunfo(posicion) == self.simbolo:
             return 1
-        else:
+        elif self.triunfo(posicion) == self.contrario.simbolo:
             return -1
+        else:
+            return 0
         
     def MinimaxAlphaBeta(self,posicion,profundidad : int, maxPlayer: bool, alfa: float = -math.inf, beta: float = math.inf) -> float:
         if self.heuristica(posicion) or profundidad == 0:
             return self.evaluate(posicion)
         if maxPlayer: 
-            for nextPos in self.posiciones_siguientes(posicion):
-                resultado: float = self.MinimaxAlphaBeta(nextPos,profundidad-1,False,alfa,beta)
+            for nexMov in self.posiciones_siguientes(posicion):
+                resultado: float = self.MinimaxAlphaBeta(nexMov,profundidad-1,False,alfa,beta)
                 alfa = max(alfa,resultado)
                 if beta <= alfa:
                     break
             return alfa
         else: 
-            for nextPos in self.posiciones_siguientes(posicion):
-                resultado = self.MinimaxAlphaBeta(nextPos,profundidad-1,True,alfa,beta)
+            for nexMov in self.posiciones_siguientes(posicion):
+                resultado = self.MinimaxAlphaBeta(nexMov,profundidad-1,True,alfa,beta)
                 beta = min(beta,resultado)
                 if beta <= alfa:
                     break
@@ -53,6 +55,6 @@ class JugadorCaballosBailadoresEquipo4(JugadorCaballosBailadores):
 if __name__ == '__main__':
     jugador1 = JugadorCaballosBailadoresEquipo4('Erickxzin')
     jugador2 = JugadorCaballosBailadoresAleatorio('Player 2')
-    juego = JuegoCaballosBailadores(jugador1,jugador2,5,8)
-    juego.inicia(veces=100,delta_max=2)
+    juego = JuegoCaballosBailadores(jugador1,jugador2, 5,8)
+    juego.inicia(veces=10000,delta_max=2)
     

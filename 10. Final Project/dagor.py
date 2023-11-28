@@ -189,12 +189,12 @@ class Juego:
                     self._jugador1 if i % 2 == 0
                     else self._jugador2)
                 self._posicion = self.posicion_inicial()
-                self.imprime_posicion()
+                #self.imprime_posicion()
                 self._num_tiro = 0
 
                 while True:
                     self._num_tiro += 1
-                    self.pre_tiro()
+                    #self.pre_tiro()
                     posibles = self.posiciones_siguientes(self._posicion)
                     tiempo_inicio = time.time()
                     tiro = self._jugador_actual.tira(self._posicion)
@@ -208,13 +208,13 @@ class Juego:
                     if tiro not in posibles:
                         raise TiroInvalido(tiro)
                     self._posicion = tiro
-                    self.post_tiro()
-                    self.imprime_posicion()
+                    #self.post_tiro()
+                    #self.imprime_posicion()
                     if self.juego_terminado(self._posicion):
                         break
                     self.alterna_jugador()
 
-                self.imprime_resultado()
+                #self.imprime_resultado()
 
                 if (not self.triunfo(self._jugador1, self._posicion)
                         and not self.triunfo(self._jugador2, self._posicion)):
