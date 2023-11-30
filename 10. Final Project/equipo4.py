@@ -4,7 +4,7 @@
 # Date: 29-Nov-2023
 # Authors:
 #           A01747869 Gustavo Gutiérrez
-#           A01746219 Ericx Navarro
+#           A01746219 Eric Navarro
 #----------------------------------------------------------
 
 from dagor import JuegoCaballosBailadores, JugadorCaballosBailadores, JugadorCaballosBailadoresAleatorio
@@ -58,6 +58,6 @@ class JugadorCaballosBailadoresEquipo4(JugadorCaballosBailadores):
 if __name__ == '__main__':
     jugador1 = JugadorCaballosBailadoresEquipo4('Equipo 4')
     jugador2 = JugadorCaballosBailadoresAleatorio('Player 2')
-    juego = JuegoCaballosBailadores(jugador1,jugador2, 8,8)
+    juego = JuegoCaballosBailadores(jugador1,jugador2, 5,8)
     juego.inicia(veces=1000,delta_max=2)
     
