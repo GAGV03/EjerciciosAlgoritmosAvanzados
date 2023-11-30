@@ -1,1 +1,1 @@
-maxPlayer
+return self.triunfo(posicion) == self.simbolo
